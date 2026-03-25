@@ -69,6 +69,40 @@
       `${d}d ${h}h ${m}m ${s}s`;
   }, 1000);
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
+<script>
+  // Cena
+  const scene = new THREE.Scene();
+
+  // Câmera
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.z = 3;
+
+  // Renderizador
+  const renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Luz
+  const light = new THREE.PointLight(0xff0000, 1);
+  light.position.set(5,5,5);
+  scene.add(light);
+
+  // Geometria TEMPORÁRIA (substitui pela camisa depois)
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  // Rotação automática
+  function animate() {
+    requestAnimationFrame(animate);
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+
+  animate();
+</script>
 </body>
 </html>
